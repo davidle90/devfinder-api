@@ -22,7 +22,7 @@ class Event extends Model
         'end_datetime' => 'datetime'
     ];
 
-    public function created_by() : BelongsTo
+    public function owner() : BelongsTo
     {
         return $this->belongsTo(User::class, 'owner_id', 'id');
     }

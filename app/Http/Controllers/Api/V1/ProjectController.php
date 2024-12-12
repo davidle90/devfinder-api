@@ -13,7 +13,9 @@ class ProjectController extends ApiController
      */
     public function index()
     {
-        //
+        $projects = Project::get();
+
+        return response()->json();
     }
 
     /**

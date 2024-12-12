@@ -14,6 +14,33 @@ class CompanyResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'type' => 'company',
+            'id' => $this->id,
+            'attributes' => [
+                'name' => $this->name,
+                'description' => $this->description,
+                'website' => $this->website,
+                'logo' => $this->logo
+            ],
+            'relationships' => [
+                'owner' => [
+                    'data' => [
+                        'type' => 'user',
+                        'id' => $this->owner_id
+                    ],
+                    'links' => [
+                        'self' => route('users.show', ['user' => $this->owner_id])
+                    ]
+                ],
+            ],
+            'includes' => [
+                'owner' => UserResource::collection($this->whenLoaded('owner')),
+                'listings' => ListingResource::collection($this->whenLoaded('listings'))
+            ],
+            'links' => [
+                'self' => route('companies.show', ['company' => $this->id])
+            ]
+        ];
     }
 }

@@ -25,7 +25,7 @@ class Company extends Model
         return $this->morphMany(Listing::class, 'listable');
     }
 
-    public function user() : BelongsTo
+    public function owner() : BelongsTo
     {
         return $this->belongsTo(User::class, 'owner_id', 'id');
     }

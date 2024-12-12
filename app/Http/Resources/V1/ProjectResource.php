@@ -14,6 +14,35 @@ class ProjectResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'type' => 'project',
+            'id' => $this->id,
+            'attributes' => [
+                'title' => $this->title,
+                'description' => $this->description,
+                'respository_url' => $this->repository_url,
+                'start_datetime' => $this->start_datetime,
+                'end_datetime' => $this->end_datetime
+            ],
+            'relationships' => [
+                'owner' => [
+                    'data' => [
+                        'type' => 'user',
+                        'id' => $this->owner_id
+                    ],
+                    'links' => [
+                        'self' => route('users.show', ['user' => $this->owner_id])
+                    ]
+                ],
+            ],
+            'includes' => [
+                'owner' => UserResource::collection($this->whenLoaded('owner')),
+                'listings' => ListingResource::collection($this->whenLoaded('listings')),
+                'contributions' => ContributionResource::collection($this->whenLoaded('contributions'))
+            ],
+            'links' => [
+                'self' => route('projects.show', ['project' => $this->id])
+            ]
+        ];
     }
 }
