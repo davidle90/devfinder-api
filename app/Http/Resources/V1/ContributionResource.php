@@ -14,6 +14,36 @@ class ContributionResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'type' => 'contribution',
+            'id' => $this->id,
+            'attributes' => [
+                'role' => $this->role,
+            ],
+            'relationships' => [
+                'user' => [
+                    'data' => [
+                        'type' => 'user',
+                        'id' => $this->user_id
+                    ],
+                    'links' => [
+                        'self' => route('users.show', ['user' => $this->user_id])
+                    ]
+                ],
+                'project' => [
+                    'data' => [
+                        'type' => 'project',
+                        'id' => $this->project_id
+                    ]
+                ]
+            ],
+            'includes' => [
+                'user' => new UserResource($this->whenLoaded('user')),
+                'project' => new ListingResource($this->whenLoaded('project'))
+            ],
+            'links' => [
+                'self' => route('contributions.show', ['contribution' => $this->id])
+            ]
+        ];
     }
 }

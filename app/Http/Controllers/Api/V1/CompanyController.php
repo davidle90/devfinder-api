@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1;;
 
+use App\Http\Filters\V1\CompanyFilter;
 use App\Http\Requests\Api\V1\Company\StoreCompanyRequest;
 use App\Http\Requests\Api\V1\Company\UpdateCompanyRequest;
+use App\Http\Resources\V1\CompanyResource;
 use App\Models\Company;
 
 class CompanyController extends ApiController
@@ -11,9 +13,9 @@ class CompanyController extends ApiController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(CompanyFilter $filters)
     {
-        //
+        return CompanyResource::collection(Company::filter($filters)->paginate());
     }
 
     /**

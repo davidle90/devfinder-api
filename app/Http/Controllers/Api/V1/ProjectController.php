@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1;;
 
+use App\Http\Filters\V1\ProjectFilter;
 use App\Http\Requests\Api\V1\Project\StoreProjectRequest;
 use App\Http\Requests\Api\V1\Project\UpdateProjectRequest;
+use App\Http\Resources\V1\ProjectResource;
 use App\Models\Project;
 
 class ProjectController extends ApiController
@@ -11,9 +13,9 @@ class ProjectController extends ApiController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(ProjectFilter $filters)
     {
-        //
+        return ProjectResource::collection(Project::filter($filters)->paginate());
     }
 
     /**
