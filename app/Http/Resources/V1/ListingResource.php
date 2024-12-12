@@ -79,5 +79,6 @@ class ListingResource extends JsonResource
                 return new EventResource($this->whenLoaded('listable'));
             default:
                 return null;
+        }
     }
 }
