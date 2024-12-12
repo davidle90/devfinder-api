@@ -45,7 +45,7 @@ class ListingResource extends JsonResource
                 ]
             ],
             'includes' => [
-                'owner' => UserResource::collection($this->whenLoaded('owner')),
+                'owner' => new UserResource($this->whenLoaded('owner')),
                 'listable' => $this->resolveListableResource(),
             ],
             'links' => [

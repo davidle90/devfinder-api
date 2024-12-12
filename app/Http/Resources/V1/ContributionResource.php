@@ -38,8 +38,8 @@ class ContributionResource extends JsonResource
                 ]
             ],
             'includes' => [
-                'user' => UserResource::collection($this->whenLoaded('user')),
-                'project' => ListingResource::collection($this->whenLoaded('project'))
+                'user' => new UserResource($this->whenLoaded('user')),
+                'project' => new ListingResource($this->whenLoaded('project'))
             ],
             'links' => [
                 'self' => route('contributions.show', ['contribution' => $this->id])

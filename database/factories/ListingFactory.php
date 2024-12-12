@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Project;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,11 @@ class ListingFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'owner_id' => User::factory(),
+            'title' => fake()->words(3, true),
+            'description' => fake()->paragraph(),
+            'listable_type' => Project::class,
+            'listable_id' => Project::factory()
         ];
     }
 }

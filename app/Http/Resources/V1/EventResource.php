@@ -33,7 +33,7 @@ class EventResource extends JsonResource
                 ]
             ],
             'includes' => [
-                'owner' => UserResource::collection($this->whenLoaded('owner')),
+                'owner' => new UserResource($this->whenLoaded('owner')),
             ],
             'links' => [
                 'self' => route('events.show', ['event' => $this->id])

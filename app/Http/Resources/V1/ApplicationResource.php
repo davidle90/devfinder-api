@@ -42,8 +42,8 @@ class ApplicationResource extends JsonResource
                 ],
             ],
             'includes' => [
-                'applicant' => UserResource::collection($this->whenLoaded('applicant')),
-                'listing' => ListingResource::collection($this->whenLoaded('listing'))
+                'applicant' => new UserResource($this->whenLoaded('applicant')),
+                'listing' => new ListingResource($this->whenLoaded('listing'))
             ],
             'links' => [
                 'self' => route('applications.show', ['application' => $this->id])

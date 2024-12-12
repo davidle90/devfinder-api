@@ -36,7 +36,7 @@ class ProjectResource extends JsonResource
                 ],
             ],
             'includes' => [
-                'owner' => UserResource::collection($this->whenLoaded('owner')),
+                'owner' => new UserResource($this->whenLoaded('owner')),
                 'listings' => ListingResource::collection($this->whenLoaded('listings')),
                 'contributions' => ContributionResource::collection($this->whenLoaded('contributions'))
             ],
